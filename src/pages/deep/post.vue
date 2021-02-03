@@ -1,0 +1,3 @@
+<template>
+  deep post
+</template>
