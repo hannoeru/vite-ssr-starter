@@ -1,5 +1,5 @@
-import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
+import { createApp } from './main'
 
 export async function render(url: string, manifest: Record<string, string[]>) {
   const { app, router } = createApp()
@@ -42,9 +42,11 @@ function renderPreloadLinks(modules: Set<string>, manifest: Record<string, strin
 function renderPreloadLink(file: string) {
   if (file.endsWith('.js')) {
     return `<link rel="modulepreload" crossorigin href="${file}">`
-  } else if (file.endsWith('.css')) {
+  }
+  else if (file.endsWith('.css')) {
     return `<link rel="stylesheet" href="${file}">`
-  } else {
+  }
+  else {
     // TODO
     return ''
   }

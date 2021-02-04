@@ -1,5 +1,6 @@
 // Pre-render the app into static HTML.
 // run `yarn generate` and then `dist/static` can be served as a static site.
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 import fs from 'fs'
 import path from 'path'
@@ -11,12 +12,12 @@ const manifest = require('./dist/static/ssr-manifest.json')
 const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
 const { render } = require('./dist/server/entry-server.js')
 function ensureDirExist(filePath: string) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
-  }
-  ensureDirExist(dirname);
-  fs.mkdirSync(dirname);
+  const dirname = path.dirname(filePath)
+  if (fs.existsSync(dirname))
+    return true
+
+  ensureDirExist(dirname)
+  fs.mkdirSync(dirname)
 }
 
 export async function build() {
@@ -26,18 +27,18 @@ export async function build() {
     .filter(i => !i.includes('['))
     .map((file) => {
       const name = file.replace(/\.vue$/, '').toLowerCase()
-      return name === 'index' ? `/` : `/${name}`
+      return name === 'index' ? '/' : `/${name}`
     })
-  
-  console.log(routesToPrerender);
+
+  console.log(routesToPrerender)
 
   // pre-render each route...
   for (const url of routesToPrerender) {
     const [appHtml, preloadLinks] = await render(url, manifest)
 
     const html = template
-      .replace(`<!--preload-links-->`, preloadLinks)
-      .replace(`<!--app-html-->`, appHtml)
+      .replace('<!--preload-links-->', preloadLinks)
+      .replace('<!--app-html-->', appHtml)
 
     const filePath = `dist/static${url === '/' ? '/index' : url}.html`
     ensureDirExist(filePath)

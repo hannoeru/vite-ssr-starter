@@ -2,7 +2,7 @@
 import { defineProps } from 'vue'
 
 defineProps({
-  id: String
+  id: String,
 })
 
 </script>

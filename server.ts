@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs'
 import path from 'path'
 import express from 'express'
@@ -7,7 +8,7 @@ const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 
 async function createServer(
   root = process.cwd(),
-  isProd = process.env.NODE_ENV === 'production'
+  isProd = process.env.NODE_ENV === 'production',
 ) {
   const resolve = (p: string) => path.resolve(__dirname, p)
 
@@ -16,8 +17,7 @@ async function createServer(
     : ''
 
   const manifest = isProd
-    ? // @ts-ignore
-      require('./dist/client/ssr-manifest.json')
+    ? require('./dist/client/ssr-manifest.json')
     : {}
 
   const app = express()
@@ -28,21 +28,22 @@ async function createServer(
       root,
       logLevel: isTest ? 'error' : 'info',
       server: {
-        middlewareMode: true
-      }
+        middlewareMode: true,
+      },
     })
     // use vite's connect instance as middleware
     app.use(vite.middlewares)
-  } else {
+  }
+  else {
     app.use(require('compression')())
     app.use(
       require('serve-static')(resolve('dist/client'), {
-        index: false
-      })
+        index: false,
+      }),
     )
   }
 
-  app.use('*', async (req, res) => {
+  app.use('*', async(req, res) => {
     try {
       const url = req.originalUrl
 
@@ -53,7 +54,8 @@ async function createServer(
         template = await vite.transformIndexHtml(url, template)
         // @ts-ignore
         render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
-      } else {
+      }
+      else {
         template = indexProd
         // @ts-ignore
         render = require('./dist/server/entry-server.js').render
@@ -62,11 +64,12 @@ async function createServer(
       const [appHtml, preloadLinks] = await render(url, manifest)
 
       const html = template
-        .replace(`<!--preload-links-->`, preloadLinks)
-        .replace(`<!--app-html-->`, appHtml)
+        .replace('<!--preload-links-->', preloadLinks)
+        .replace('<!--app-html-->', appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
-    } catch (e) {
+    }
+    catch (e) {
       // @ts-ignore
       vite && vite.ssrFixStacktrace(e)
       console.log(e.stack)
@@ -82,7 +85,7 @@ if (!isTest) {
   createServer().then(({ app }) =>
     app.listen(3000, () => {
       console.log('🚀  Server listening on http://localhost:3000')
-    })
+    }),
   )
 }
 

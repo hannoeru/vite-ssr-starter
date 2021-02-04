@@ -1,6 +1,6 @@
-import App from './App.vue'
 import { createSSRApp } from 'vue'
 import { createRouter } from './router'
+import App from './App.vue'
 import './main.postcss'
 
 // SSR requires a fresh app instance per request, therefore we export a function
