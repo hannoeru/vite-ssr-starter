@@ -1,0 +1,50 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html, body, #app {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  @apply bg-gray-100;
+}
+
+html.dark {
+  background: #1A202C;
+}
+
+#nprogress {
+  pointer-events: none;
+
+  .bar {
+    @apply bg-purple-500 bg-opacity-75;
+
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+  }
+}
+
+.hover-transform {
+  @apply transition transform duration-300 ease-in-out hover:-translate-y-px;
+}
+
+.basic-transition {
+  @apply transition duration-300 ease-in-out;
+}
+
+button {
+  @apply focus:outline-none;
+}
+
+h1 {
+  @apply text-4xl mb-4;
+}

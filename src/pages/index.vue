@@ -1,9 +1,9 @@
 <template>
   <h1>Home</h1>
-  <p>
+  <div class="flex justify-center mb-4">
     <img src="../assets/logo.png" alt="logo">
-  </p>
-  <button @click="state.count++">count is: {{ state.count }}</button>
+  </div>
+  <button @click="state.count++" class="px-3 py-2 bg-white border-2 rounded-xl focus:ring">count is: {{ state.count }}</button>
 </template>
 
 <script setup lang="ts">
