@@ -1,4 +1,5 @@
 import { createSSRApp } from 'vue'
+import { createHead } from '@vueuse/head'
 import { createRouter } from './router'
 import App from './App.vue'
 import './main.postcss'
@@ -8,7 +9,11 @@ import './main.postcss'
 // fresh store here.
 export function createApp() {
   const app = createSSRApp(App)
+  const head = createHead()
   const router = createRouter()
+
+  app.use(head)
   app.use(router)
-  return { app, router }
+
+  return { app, router, head }
 }

@@ -26,7 +26,7 @@ export async function build() {
   const routesToPrerender = files
     .filter(i => !i.includes('['))
     .map((file) => {
-      const name = file.replace(/\.vue$/, '').toLowerCase()
+      const name = file.replace(/\.(vue|md)$/, '').toLowerCase()
       return name === 'index' ? '/' : `/${name}`
     })
 
@@ -34,11 +34,14 @@ export async function build() {
 
   // pre-render each route...
   for (const url of routesToPrerender) {
-    const [appHtml, preloadLinks] = await render(url, manifest)
+    const [appHtml, preloadLinks, head] = await render(url, manifest)
 
     const html = template
       .replace('<!--preload-links-->', preloadLinks)
+      .replace('<!--head-links-->', head.headTags)
       .replace('<!--app-html-->', appHtml)
+      .replace('<html>', `<html${head.htmlAttrs}>`)
+      .replace('<body>', `<body${head.bodyAttrs}>`)
 
     const filePath = `dist/static${url === '/' ? '/index' : url}.html`
     ensureDirExist(filePath)

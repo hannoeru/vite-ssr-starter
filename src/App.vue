@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import { computed, reactive } from 'vue'
+import { useHead } from '@vueuse/head'
+
+const siteData = reactive({
+  title: 'My website',
+  description: 'My beautiful website',
+})
+useHead({
+  title: computed(() => siteData.title),
+  meta: [
+    {
+      name: 'description',
+      content: computed(() => siteData.description),
+    },
+  ],
+})
+</script>
+
 <template>
   <div class="text-center bg-gray-100">
     <router-link to="/">

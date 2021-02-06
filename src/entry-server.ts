@@ -1,8 +1,9 @@
 import { renderToString } from '@vue/server-renderer'
+import { renderHeadToString } from '@vueuse/head'
 import { createApp } from './main'
 
 export async function render(url: string, manifest: Record<string, string[]>) {
-  const { app, router } = createApp()
+  const { app, router, head } = createApp()
 
   // set the router to the desired URL before rendering
   router.push(url)
@@ -19,7 +20,11 @@ export async function render(url: string, manifest: Record<string, string[]>) {
   // which we can then use to determine what files need to be preloaded for this
   // request.
   const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
-  return [html, preloadLinks]
+
+  // render head
+  const renderedHead = renderHeadToString(head)
+
+  return [html, preloadLinks, renderedHead]
 }
 
 function renderPreloadLinks(modules: Set<string>, manifest: Record<string, string[]>) {

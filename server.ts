@@ -61,11 +61,14 @@ async function createServer(
         render = require('./dist/server/entry-server.js').render
       }
 
-      const [appHtml, preloadLinks] = await render(url, manifest)
+      const [appHtml, preloadLinks, head] = await render(url, manifest)
 
       const html = template
         .replace('<!--preload-links-->', preloadLinks)
+        .replace('<!--head-links-->', head.headTags)
         .replace('<!--app-html-->', appHtml)
+        .replace('<html>', `<html${head.htmlAttrs}>`)
+        .replace('<body>', `<body${head.bodyAttrs}>`)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     }
