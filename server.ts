@@ -64,7 +64,7 @@ async function createServer(
 
       const html = template
         .replace('<!--preload-links-->', preloadLinks)
-        .replace('<!--head-links-->', head.headTags)
+        .replace('<!--head-meta-->', head.headTags)
         .replace('<!--app-html-->', appHtml)
         .replace('<html>', `<html${head.htmlAttrs}>`)
         .replace('<body>', `<body${head.bodyAttrs}>`)
