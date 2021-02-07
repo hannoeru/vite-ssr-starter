@@ -16,6 +16,12 @@ function ensureDirExist(filePath: string) {
 }
 
 export async function build() {
+  // create vite dev server to transformIndexHtml
+  const vite = await import('vite').then(i => i.createServer({
+    server: {
+      middlewareMode: true,
+    },
+  }))
   // @ts-ignore
   const manifest = await import('./dist/static/ssr-manifest.json')
   const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
@@ -39,7 +45,9 @@ export async function build() {
   for (const url of routesToPrerender) {
     const [appHtml, preloadLinks, head] = await render(url, manifest)
 
-    const html = template
+    const postTemplate = await vite.transformIndexHtml(url, template)
+
+    const html = postTemplate
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--head-meta-->', head.headTags)
       .replace('<!--app-html-->', appHtml)
@@ -52,6 +60,8 @@ export async function build() {
     console.log('pre-rendered:', filePath)
   }
 
+  // close vite dev server
+  await vite.close()
   // done, delete ssr manifest
   fs.unlinkSync(toAbsolute('dist/static/ssr-manifest.json'))
 }
