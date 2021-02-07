@@ -23,12 +23,6 @@ export async function build() {
   // @ts-ignore
   const { render } = await import('./dist/server/entry-server.js')
 
-  const vite = await import('vite').then(i => i.createServer({
-    server: {
-      middlewareMode: true,
-    },
-  }))
-
   // determine routes to pre-render from src/pages
   const files = await fg('**/*.{vue,md}', { cwd: path.resolve(process.cwd(), 'src/pages') })
 
@@ -45,9 +39,7 @@ export async function build() {
   for (const url of routesToPrerender) {
     const [appHtml, preloadLinks, head] = await render(url, manifest)
 
-    const transformedTemplate = await vite.transformIndexHtml(url, template)
-
-    const html = transformedTemplate
+    const html = template
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--head-meta-->', head.headTags)
       .replace('<!--app-html-->', appHtml)
