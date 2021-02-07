@@ -61,7 +61,7 @@ export async function build() {
   }
 
   // close vite dev server
-  await vite.close()
+  // await vite.close()
   // done, delete ssr manifest
   fs.unlinkSync(toAbsolute('dist/static/ssr-manifest.json'))
 }
