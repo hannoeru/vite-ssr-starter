@@ -18,7 +18,7 @@ useHead({
 </script>
 
 <template>
-  <div class="text-center bg-gray-100">
+  <div class="text-center">
     <router-link to="/">
       Home
     </router-link> |

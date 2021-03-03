@@ -1,17 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const colors = require('tailwindcss/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
+import { defineConfig } from 'vite-plugin-windicss'
+import colors from 'windicss/colors'
+import defaultTheme from 'windicss/defaultTheme'
 
-module.exports = {
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      './index.html',
-      './src/**/*.vue',
-      './src/**/*.js',
-      './src/**/*.ts',
-    ],
-  },
+const config = defineConfig({
   theme: {
     extend: {
       fontFamily: {
@@ -40,15 +31,7 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      translate: ['group-hover'],
-      animation: ['group-hover'],
-      backgroundOpacity: [
-        'dark',
-        'active',
-      ],
-    },
-  },
   darkMode: 'class',
-}
+})
+
+export default config

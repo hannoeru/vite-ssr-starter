@@ -2,6 +2,7 @@ import { UserConfig } from 'vite'
 import VuePlugin from '@vitejs/plugin-vue'
 import ViteIcons, { ViteIconsResolver } from 'vite-plugin-icons'
 import ViteComponents from 'vite-plugin-components'
+import WindiCSS from 'vite-plugin-windicss'
 
 const config: UserConfig = {
   plugins: [
@@ -19,6 +20,7 @@ const config: UserConfig = {
       scale: 1.1,
       defaultStyle: 'vertical-align: middle;',
     }),
+    WindiCSS(),
   ],
   build: {
     minify: false,
