@@ -16,7 +16,7 @@ async function createServer(
     : ''
 
   const manifest = isProd
-    ? await import('./dist/client/ssr-manifest.json')
+    ? JSON.parse(fs.readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8'))
     : {}
 
   const app = express()
