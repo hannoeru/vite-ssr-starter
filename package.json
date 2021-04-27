@@ -12,44 +12,37 @@
     "serve:static": "serve dist/static"
   },
   "dependencies": {
-    "@vueuse/head": "^0.3.1",
-    "vite-pages": "^0.1.0",
-    "vue": "^3.0.7",
-    "vue-router": "^4.0.4"
+    "@vueuse/head": "^0.5.1",
+    "vite-pages": "^0.1.2",
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.4.3",
-    "@iconify/json": "^1.1.311",
+    "@antfu/eslint-config": "^0.6.4",
+    "@iconify/json": "^1.1.334",
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.11",
-    "@types/node": "^14.14.31",
-    "@vitejs/plugin-vue": "^1.1.5",
-    "@vue/compiler-sfc": "^3.0.7",
-    "@vue/server-renderer": "^3.0.7",
+    "@types/node": "^15.0.1",
+    "@vitejs/plugin-vue": "^1.2.2",
+    "@vue/compiler-sfc": "^3.0.11",
+    "@vue/server-renderer": "^3.0.11",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
-    "eslint": "^7.21.0",
-    "esno": "^0.4.5",
+    "eslint": "^7.25.0",
+    "esno": "^0.5.0",
     "express": "^4.17.1",
     "fast-glob": "^3.2.5",
     "npm-run-all": "^4.1.5",
     "serve": "^11.3.2",
     "serve-static": "^1.14.1",
-    "typescript": "^4.2.2",
-    "vite": "^2.0.5",
-    "vite-plugin-components": "^0.7.5",
-    "vite-plugin-icons": "^0.3.2",
-    "vite-plugin-windicss": "^0.6.4",
-    "windicss": "^2.2.4"
+    "typescript": "^4.2.4",
+    "vite": "^2.2.3",
+    "vite-plugin-components": "^0.8.4",
+    "vite-plugin-icons": "^0.5.0",
+    "vite-plugin-windicss": "^0.15.7",
+    "windicss": "^2.5.14"
   },
   "eslintConfig": {
-    "extends": "@antfu/eslint-config",
-    "ignorePatterns": [
-      "dist/*",
-      "**/vendor/*.js"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": "off"
-    }
+    "extends": "@antfu"
   }
 }
